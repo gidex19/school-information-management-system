@@ -1,0 +1,99 @@
+{% load staticfiles i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+-->
+<link rel="stylesheet"  type="text/css" href="{% static 'portal/bootstrap.min.css' %}">
+<link rel="stylesheet"  type="text/css" href="{% static 'portal/bootstrap.min.js' %}">
+    <style>
+@page {
+    size: "A4";
+    margin: 1.5cm 1.0cm 2.7cm 1.0cm;
+    @bottom-center {
+        background: url({% static "portal/bgg.jpg") no-repeat center top;
+        background-size: auto 1.5cm;
+        padding-top: 1.8cm;
+        content: "Gidex DevLabs...";
+        font: 6pt "Playfair Display";
+        text-align: center;
+        vertical-align: top;
+    }
+
+}
+.schoolname{
+    text-align: center;
+    color: cornflowerblue;
+    font: 15pt "Playfair Display";
+}
+.standard{
+  color: black;
+  font: 8pt "Playfair Display";
+}
+.larger-blue{
+  color: white;
+  font: 10pt "Playfair Display";
+}
+.rowz{
+  border: 1px lightgray solid;
+  flex: 1;
+
+}
+.con{
+  width: 100%;
+  display: flex;
+
+}
+.con2{
+  width: 100%;
+  display: flex;
+}
+
+</style>
+</head>
+<hr>
+    <h2 class="schoolname" id="schoolname" > FEDERAL GOVERNMENT COLLEGE, ZARIA</h2>
+    <hr style="color: cornflowerblue; width:50%; ">
+    <h3 class="schoolname" >Payment Slip</h3>
+
+    <div class="con">
+    <div class="rowz" >
+    <div style="padding: 1em;">
+      <p class="standard">Last Name: <b>{{student.last_name.upper}}</b></p>
+      <p class="standard">First Name: <b>{{student.first_name.upper}}</b></p>
+      <p class="standard">Middle Name: <b>{{student.middle_name.upper}} </b></p>
+      <p class="standard">Gender: {{student.gender}}</p>
+    </div>
+
+  </div>
+  <div class="rowz" >
+    <div style="padding: 1em;">
+    <p class="standard">Current Class: {{student.current_class}}</p>
+    <p class="standard">Type: {{student.resident_type}} </p>
+    <p class="standard">Username: {{student.username}}</p>
+    <p class="standard">Email: {{student.email}}</p>
+    </div>
+  </div>
+  <div class="rowz" >
+    <div style="padding: 1em;">
+      <p class="standard">Next Term Begins: Aug, 02 2020 </p>
+      <p class="standard">Next Term Ends: Dec, 02 2020</p>
+    </div>
+  </div>
+  </div>
+
+
+    <div class="con2">
+    <p style='font: 20pt "Playfair Display"; margin-top: 0em; color: cornflowerblue; text-align: center '>
+      SCHOOL FEES PAID</p>
+
+  </div>
+
+
+</body>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>

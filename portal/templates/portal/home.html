@@ -1,0 +1,146 @@
+{% extends 'portal/outerbase.html' %}
+{% load static %}
+{% block sections %}
+
+<!-- About section-->
+<section class="page-section bg-primary" id="about">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="text-white mt-0">We've got what you need!</h2>
+                    <hr class="divider light my-6" />
+                    <p class="text-white-50">We offer the best teaching services in the Nation and we are bold to declare it.</p>
+                    <p class="text-white-50 mb-3">Our Specialised Staffs and Teachers are trained to attend to the emotional, scientifical and educational needs of its students. We Guarantee practical learning as our Science and ICT labs are adequately equipped with the necessary Kits</p>
+                    <p class="text-white-50 mb-3">We hope you find the information provided here helpul </p>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Portfolio section-->
+    <section id="portfolio">
+            <div class="container-fluid p-0">
+                <div class="row no-gutters">
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'portal/boxed/library.jpg' %}"
+                            ><img class="img-fluid" src="{% static 'portal/boxed/library.jpg' %}" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">SCHOOL LIBRARY</div>
+                                
+                            </div></a
+                        >
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'portal/boxed/food.jpg' %}"
+                            ><img class="img-fluid" src="{% static 'portal/boxed/food.jpg' %}" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">SCHOOL CAFETERIA</div>
+                                
+                            </div></a
+                        >
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'portal/boxed/pitch.jpg' %}"
+                            ><img class="img-fluid" src="{% static 'portal/boxed/pitch.jpg' %}" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">FOOTBALL PITCH</div>
+                                
+                            </div></a
+                        >
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'portal/boxed/labs.jpg' %}"
+                            ><img class="img-fluid" src="{% static 'portal/boxed/labs.jpg' %}" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">LABORATORY</div>
+                                <!-- <div class="project-name">Project Name</div> -->
+                            </div></a
+                        >
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'portal/boxed/ict.jpg' %}"
+                            ><img class="img-fluid" src="{% static 'portal/boxed/ict.jpg' %}" alt="" />
+                            <div class="portfolio-box-caption p-3">
+                                <div class="project-category text-white-50">ICT</div>
+                                
+                            </div></a
+                        >
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'portal/boxed/dormitory.jpg' %}"
+                            ><img class="img-fluid" src="{% static 'portal/boxed/dormitory.jpg' %}" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">DORMITORY</div>
+                                
+                            </div></a
+                        >
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+
+    
+    <!-- How to section -->
+
+    <section class="page-section" id="services">
+        <div class="container">
+            <h2 class="text-center mt-0">Get Informed</h2>
+            <hr class="divider my-2 "/>
+            <div class="row">
+                <div class="col-lg-6 col-md-12 text-center">
+                    <div class="mt-3 jumbotron ">
+                        <h3 class="h4 mb-2 mt-0">How To Check Your Results</h3>
+                        <p class="text-muted mb-0">To check your results on your portal, follow these steps:</p>
+                        <ul class="list">
+                            <li>Click on "Portal" on the website navigation section and you will be directed to the portals login page</li>
+                            <li>Enter your Valid Username and Password in The appropriate fields provided. If credentials are valid, 
+                                Then you will be welcomed to your Dashboard</li>
+                            <li>Click on "Results".</li>
+                            <li>Select the term and Session.</li>
+                            <li>You can download the result in pdf format. </li>
+                        </ul>
+                        <a href="{% url 'results' %}" class="btn btn-primary round">Check Now</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 text-center">
+                    <div class="mt-3 jumbotron">
+                        <h3 class="h4 mb-2">How To Make Payments </h3>
+                        <p class="text-muted mb-0">To make payments on your portal, follow these steps:</p>
+                        <ul class="list">
+                                <li>Click on "Portal" on the website navigation section and you will be directed to the portals login page</li>
+                                <li>Enter your Valid Username and Password in The appropriate fields provided. If credentials are valid,
+                                    Then you will be welcomed to your Dashboard.</li>
+                                <li>Click on "Payments and Bills".</li>
+                                <li>Click on "Pay School Fees" and enter card details.</li>
+                               
+                                <li>Download Generate reciept as Proof of payment.</li>
+                            </ul>
+                        <a href="{% url 'payment' %}" class="btn btn-primary round">Pay Now</a>
+                    </div>
+                </div>
+                <!--
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="mt-5">
+                        <i class="fas fa-4x fa-globe text-primary mb-4"></i>
+                        <h3 class="h4 mb-2">Ready to Publish</h3>
+                        <p class="text-muted mb-0">You can use this design as is, or you can make changes!</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="mt-5">
+                        <i class="fas fa-4x fa-heart text-primary mb-4"></i>
+                        <h3 class="h4 mb-2">Made with Love</h3>
+                        <p class="text-muted mb-0">Is it really open source if it's not made with love?</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- end of how to section-->
+
+
+
+{% endblock %}

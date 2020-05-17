@@ -1,0 +1,29 @@
+{% extends 'portal/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container-fluid">
+    <table class="table table-hover table-dark">
+    <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Teacher</th>
+          <th scope="col">Teacher's Phone</th>
+            <th scope="col">Teacher's Email</th>
+        </tr>
+    </thead>
+      <tbody>
+        {% for dcourse in dcourses %}
+        <tr>
+          <th scope="row">#</th>
+          <td>{{ dcourse.title }}</td>
+          <td>{{ dcourse.teacher }}</td>
+          <td>{{ dcourse.phone }}</td>
+          <td>{{ dcourse.email }}</td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+</table>
+    </div>
+{% endblock content %}

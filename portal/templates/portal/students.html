@@ -1,0 +1,69 @@
+{% load staticfiles i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet"  type="text/css" href="{% static 'portal/bootstrap.min.css' %}">
+
+    <style>
+@page {
+    size: "A4";
+    margin: 2.5cm 1.5cm 3.5cm 1.5cm;
+    @bottom-center {
+        background: url({% static 'site/img/logo-pdf.svg' %}) no-repeat center top;
+        background-size: auto 1.5cm;
+        padding-top: 1.8cm;
+        content: "{% trans "Donation made via www.make-impact.org" %}";
+        font: 10pt "Playfair Display";
+        text-align: center;
+        vertical-align: top;
+    }
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+
+}
+</style>
+</head>
+<body>
+<div class="container-fluid bg-info">
+    <h4 class="text-center "> All the Students </h4>
+
+    <table class="table table-hover table-dark">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Username</th>
+          <th scope="col">Class</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Middle Name</th>
+          <th scope="col">Gender</th>
+        </tr>
+    </thead>
+        <tbody>
+        {% for student in students %}
+        <tr>
+          <th scope="row">#</th>
+          <td>{{ student.username }}</td>
+          <td>{{ student.current_class }}</td>
+          <td>{{ student.last_name }}</td>
+          <td>{{ student.first_name }}</td>
+          <td>{{ student.middle_name }}</td>
+          <td>{{ student.gender }}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+</body>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>
