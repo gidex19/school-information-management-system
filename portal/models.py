@@ -135,7 +135,6 @@ class Payment(models.Model):
     session = models.CharField(max_length=30, choices=year_list)
     amount = models.PositiveIntegerField(default=0)
     reference = models.CharField(max_length=100, default='Unpaid')
-    access_code = models.CharField(max_length=100, blank=True)
     paid = models.BooleanField(default= False)
 
 

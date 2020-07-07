@@ -19,5 +19,5 @@ urlpatterns = [
     path('pdfredirect/', portal_view.pdf_redirect, name = 'pdfredirect'),
     path('results/', portal_view.results, name = 'results'),
     path('about/', portal_view.about, name = 'about'),
-    path('students/<slug:class_name>', portal_view.all_students, name = 'all_students'),
+    path('students/<slug:class_name>/', portal_view.all_students, name = 'all_students'),
 ]

@@ -21,6 +21,7 @@ paystack_secret_key = "sk_test_e56f0936942534b4bb68c97f96ec5478d3177c2d"
 paystack_public_key = "pk_test_b5844de2f9b615efc128374d8b500c7109d903bd"
 paystack = Paystack(secret_key=paystack_secret_key)
 
+#these are the default current terms and sessions ...both for urls and for templates
 current_year = '2020/2021'
 current_term = 'First Term'
 current_term_url = 'first_term'
@@ -37,32 +38,45 @@ year_list = ['2019/2020','2020/2021','2021/2022','2022/2023','2023/2024','2024/2
 
 @login_required()
 def trans(request, term = None, session = None):
+    #adding a default term and session for the current year and session
+    term = current_term_url
+    session = current_year_url
+
+
     session = session.replace('-', '/')
-    #term  = current_term_url
+    #converting the term and session url to useable forms for object querying
     term = term.split('_')
     term = term[0].capitalize() + ' ' + term[1].capitalize()
     student = request.user
     print(student.email)
+    #check if user exists...if user exists, check if the user has paid to avoid multiple payments and regeneration of a new reference
+    #if user has paid redirect users to avoid repayment
+    if Payment.objects.all().filter(student=student, session=session, term=term).exists():
+        instance = Payment.objects.all().filter(student=student, session=session, term=term).first()
+        dref = instance.reference
+        verify = Transaction.verify(reference=dref)
+        if verify['data']['status'] == 'success':
+            return HttpResponse("<h2>Sorry Cant Initialise payment..It seems this Student has paid Already</h2>")
+    print("went ahead still")
     response = Transaction.initialize(amount='36500', email=student.email)
-    print(response['status'])
-    print(response)
+    #print(response['status'])
+    #print(response)
     ref = response['data']['reference']
-    access_code = response['data']['access_code']
     pay_instance = get_object_or_404(Customuser, username=request.user.username)
     if response['status'] == True:
         if Payment.objects.all().filter(student=student, session=session, term=term).exists():
             pay_instance = Payment.objects.all().filter(student=student, session=session, term=term)
-            pay_instance.update(student = student, session=session, term=term, reference=ref, access_code=access_code)
+            pay_instance.update(student = student, session=session, term=term, reference=ref)
             print('payment instance exists')
 
-
+        #checking if the term and session is valid for querying
         elif term in terms_list and session in year_list:
             print('payment instance does not exists but we will create an instance right away')
             Payment.objects.create(student=student, session=session, term=term)
             pay_instance = Payment.objects.all().filter(student=student, session=session, term=term)
-            pay_instance.update(student = student, session=session, term=term, reference=ref, access_code= access_code)
+            pay_instance.update(student = student, session=session, term=term, reference=ref)
         else:
-            print('invalid term entered ...we just cannot help you man!!!')
+            print('invalid term and session entered ...simply do nothing')
             #return HttpResponseNotFound('<h1>Oops!!! The page you are looking for does not Exits</h1>')
         a_url = response['data']['authorization_url']
         print(a_url)
@@ -74,17 +88,57 @@ def trans(request, term = None, session = None):
 
 @login_required()
 def pdf_payments(request):
+    session = current_year
+    term = current_term
     student = request.user
-    session = current_year_url
-    term = current_term_url
-    response = HttpResponse(content_type="application/pdf")
-    response['Content-Disposition'] = "inline; filename={username}--payment_slip.pdf".format(
-        username = student.username,
-    )
-    html = render_to_string("portal/pdf_payments.html", {'student': student})
-    font_config = FontConfiguration()
-    HTML(string=html).write_pdf(response, font_config=font_config)
-    return response
+    paramz =  request.GET.get('trxref', 'None')
+    print(paramz)
+    if Payment.objects.all().filter(student=student, session=session, term=term).exists():
+        pay_instance = Payment.objects.all().filter(student=student, session=session, term=term).first()
+        pay_queryobj = Payment.objects.all().filter(student=student, session=session, term=term)
+        pay_reference = pay_instance.reference
+        details = Transaction.verify(reference=pay_reference)
+        """details = {'status': True, 'message': 'Verification successful',
+        'data': {'id': 689309114, 'domain': 'test', 'status': 'success', 'reference': '78891xr7yr', 'amount': 36500,
+              'message': None, 'gateway_response': 'Successful', 'paid_at': '2020-05-18T05:45:32.000Z',
+              'created_at': '2020-05-18T05:44:54.000Z', 'channel': 'card', 'currency': 'NGN',
+              'ip_address': '197.210.85.161', 'metadata': '',
+              'log': {'start_time': 1589780696, 'time_spent': 36, 'attempts': 1, 'errors': 0, 'success': True,
+                      'mobile': False, 'input': [],
+                      'history': [{'type': 'action', 'message': 'Attempted to pay with card', 'time': 33},
+                                  {'type': 'success', 'message': 'Successfully paid with card', 'time': 36}]},
+              'fees': 548, 'fees_split': None,
+              'authorization': {'authorization_code': 'AUTH_yxosexoc1i', 'bin': '408408', 'last4': '4081',
+                                'exp_month': '12', 'exp_year': '2020', 'channel': 'card', 'card_type': 'visa DEBIT',
+                                'bank': 'Test Bank', 'country_code': 'NG', 'brand': 'visa', 'reusable': True,
+                                'signature': 'SIG_NlEUoHsnDwRFxtXns1Rh', 'account_name': None},
+              'customer': {'id': 24089936, 'first_name': None, 'last_name': None, 'email': 'bulusjarfa@gmail.com',
+                           'customer_code': 'CUS_nbju2d68or7j3o3', 'phone': None, 'metadata': None,
+                           'risk_action': 'default'}, 'plan': None, 'order_id': None,
+              'paidAt': '2020-05-18T05:45:32.000Z', 'createdAt': '2020-05-18T05:44:54.000Z', 'requested_amount': 36500,
+              'transaction_date': '2020-05-18T05:44:54.000Z', 'plan_object': {}, 'subaccount': {}}}  """
+    #print(details)============
+
+        if details['data']['status'] == 'success':
+            pay_queryobj.update(paid=True, amount=details['data']['amount'])
+            response = HttpResponse(content_type="application/pdf")
+            response['Content-Disposition'] = "inline; filename={username}--payment_slip.pdf".format(
+                username = student.username,
+            )
+            html = render_to_string("portal/pdf_payments.html", {'student': student, 'pay_reference': pay_reference,
+                                                         'pay_status': details['data']['status'],
+                                                         'amount': details['data']['amount'],
+                                                         'pay_date': details['data']['paid_at'],
+                                                         'term': term, 'session': session
+                                                         })
+            font_config = FontConfiguration()
+            HTML(string=html).write_pdf(response, font_config=font_config)
+            return response
+        else:
+            return HttpResponse("<h2> Oops.....Sorry .PDF Reciept cannot be generated for students who have not paid...</h2>")
+
+    else:
+        return HttpResponse("<h2>You have not attemped to make your Payment...please return to make payments...Thank You</h2><a class='btn btn-outline-info' href='#'></a>")
 """
     if session == None and term ==None:
         student = request.user
@@ -188,6 +242,8 @@ def pdf_results(request, choice = None, session = None):
         average = 0
     else:
         average = overall_total/nc
+        average = round(average, 2)
+
 
     response = HttpResponse(content_type="application/pdf")
     response['Content-Disposition'] = "inline; filename={username}-{current_class}-result.pdf".format(
@@ -418,5 +474,6 @@ def payment(request):
 def payment(request):
     sender = request.user
     return render(request, 'portal/payment.html', {'sender': sender, 'current_term_url': current_term_url,
-                                                    'current_year_url': current_year_url})
+                                                    'current_year_url': current_year_url, 'current_term': current_term,
+                                                   'current_year': current_year})
 

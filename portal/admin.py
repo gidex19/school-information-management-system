@@ -83,4 +83,4 @@ class PaymentAdmin(admin.ModelAdmin):
     list_filter = ('student', 'term', 'session', 'paid')
     ordering = ('student',)
     search_fields = ('student', 'reference')
-
+    readonly_fields = ['student', 'term', 'session', 'amount', 'reference', 'paid']

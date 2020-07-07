@@ -55,9 +55,9 @@
 </style>
 </head>
 <hr>
-    <h2 class="schoolname" id="schoolname" > FEDERAL GOVERNMENT COLLEGE, ZARIA</h2>
+    <h2 class="schoolname" id="schoolname" > PRESTIGE MODEL SCHOOL, MINNA</h2>
     <hr style="color: cornflowerblue; width:50%; ">
-    <h3 class="schoolname" >Payment Slip</h3>
+    <h3 class="schoolname" >Payment Slip For {{session}} Session, {{term}}</h3>
 
     <div class="con">
     <div class="rowz" >
@@ -79,18 +79,21 @@
   </div>
   <div class="rowz" >
     <div style="padding: 1em;">
-      <p class="standard">Next Term Begins: Aug, 02 2020 </p>
-      <p class="standard">Next Term Ends: Dec, 02 2020</p>
+        <p class="standard">Payment Status: {{ pay_status.upper }}</p>
+        <p class="standard">Reference: <b>{{ pay_reference }}</b></p>
+        <p class="standard">Amount: N{{ amount }} </p>
+        <p class="standard">Date: {{ pay_date }}</p>
     </div>
   </div>
   </div>
 
 
-    <div class="con2">
-    <p style='font: 20pt "Playfair Display"; margin-top: 0em; color: cornflowerblue; text-align: center '>
+    <div style="margin: 20%; filter: blur(7px); ">
+    <p style= 'font: 30pt "Playfair Display"; margin-top: 3em; text-align: center;
+     padding: 0.2em; transform: rotate(-18deg); color: rgba(100, 149, 237, 0.4);   '>
       SCHOOL FEES PAID</p>
 
-  </div>
+    </div>
 
 
 </body>

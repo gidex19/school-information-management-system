@@ -68,14 +68,14 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Make Payments</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Make Payment for {{current_term}} {{current_year}} session</h6>
                 </div>
                     <div class="card-body">
                   <h6> Make Payment easily with your ATM Master card</h6>
                         <form>
                         <p>Pay your school fees using paystack. Please be informed that payments are Non-refundable</p>
                         <script src="https://js.paystack.co/v1/inline.js"></script>
-                        <a href="{% url 'trans' current_year_url current_term_url %}" class="btn btn-md btn-outline-info" >Pay School Fees</a>
+                        <a href="{% url 'trans' current_year_url current_term_url %}" class="btn btn-md btn-outline-primary" >Pay School Fees</a>
                         </form>
 
                 </div>
